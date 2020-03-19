@@ -1,0 +1,15 @@
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+header {
+    padding-top: 1%;
+}
+header img {
+	max-height: 40px;
+    margin: 2% 4%;
+}
+.my-custom-menu {
+    --width: 500px;
+  }
+  :root {
+    --ion-safe-area-top: 20px;
+    --ion-safe-area-bottom: 22px;
+  }

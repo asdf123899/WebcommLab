@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>caseReqSearchResult</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <h1>查詢結果</h1>
+  </div>
+  <ion-list>
+    <ion-item>
+      <ion-label>項次</ion-label>
+      <ion-label>工作編號</ion-label>
+      <ion-label>列管層級</ion-label>
+    </ion-item>
+    <ion-list>
+      <ng-container *ngFor="let caseReq of caseReqs$ ; index as caseReqId">
+      <ion-item-sliding >
+        <ion-item>
+            <ion-label>{{caseReqId + 1}}</ion-label>
+            <ion-label>{{caseReq.caseNo}}</ion-label>
+            <ion-label>{{caseMonitorLevelEnum[caseReq.monitorLevel]}}</ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option [routerLink]="['/oa/caseReq/caseReqUpdate', caseReq.caseNo]"><ion-icon name="create"></ion-icon>修改</ion-item-option>
+          <ion-item-option [routerLink]="['/oa/caseReq/caseReqView', caseReq.caseNo]"><ion-icon name="eye"></ion-icon>檢視</ion-item-option>
+          <ion-item-option (click)='presentAlertMultipleButtons(caseReq.caseNo)'><ion-icon name="trash"></ion-icon>刪除</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ng-container>
+    </ion-list>
+  </ion-list>
+</ion-content>

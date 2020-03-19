@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>caseReqSearch</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+<ion-content>
+  <div class="container">
+    <h1>查詢畫面</h1>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
+      <div class="form-row">
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>列管層級</ion-label>
+              <ion-select formControlName='monitorLevel' [(ngModel)]="monitorLevel$" >
+                <ion-select-option  *ngFor="let monitorLevel of keys(caseMonitorLevelEnum) " [value]=monitorLevel >
+                  {{caseMonitorLevelEnum[monitorLevel]}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>類別</ion-label>
+              <ion-select formControlName='type' [(ngModel)]="type$"  >
+                <ion-select-option   *ngFor="let type of keys(caseTypeEnum)"  [value]=type>{{caseTypeEnum[type]}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>主管單位</ion-label>
+              <ion-select formControlName='managerUnit'>
+                <ion-select-option value="" >全部</ion-select-option>
+                <ion-select-option *ngFor="let managerUnit of empList$" [value]=managerUnit.unit.unitId>
+                  {{managerUnit.unit.unitName +' - '+ managerUnit.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>承辦單位</ion-label>
+              <ion-select formControlName="contactUnit" >
+                <ion-select-option value="">全部</ion-select-option>
+                <ion-select-option *ngFor="let contactUnit of empList$" [value]=contactUnit.unit.unitId>
+                  {{contactUnit.unit.unitName +' - '+ contactUnit.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+      <div class='right'>
+        <ion-button class="button" type="submit" color="primary" size="large" expand="full">查詢</ion-button>
+      </div>
+    </form>
+  </div>
+
+</ion-content>

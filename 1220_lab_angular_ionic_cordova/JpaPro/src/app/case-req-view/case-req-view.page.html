@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>caseReqView</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class=" container">
+      <h1>檢視畫面</h1>
+      <form *ngIf="caseReq$ ; let caseReq">
+        <div class="form-row">
+            <div class="col ">
+              <ion-list>
+                <ion-item>
+                  <ion-label >工作編號</ion-label>
+                  <p>{{caseReq.caseNo}}</p>
+                </ion-item>
+              </ion-list>
+            </div>
+          <div class="col">
+            <ion-list>
+              <ion-item>
+                <ion-label >列管層級</ion-label>
+                <p>{{caseMonitorLevelEnum[caseReq.monitorLevel]}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="col">
+            <ion-list>
+              <ion-item>
+                <ion-label>類別</ion-label>
+                <p>{{caseTypeEnum[caseReq.type]}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <ion-list>
+              <ion-item>
+                <ion-label>主管單位</ion-label>
+                <p>{{caseReq.manager.unit.unitName +' - '+ caseReq.manager.name}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="col">
+            <ion-list>
+              <ion-item>
+                <ion-label>承辦單位</ion-label>
+                <p>{{caseReq.contact.unit.unitName +' - '+ caseReq.contact.name}}</p>
+              </ion-item>
+            </ion-list>
+          </div>
+          <div class="col">
+            <ion-item>
+              <ion-label>開始日期</ion-label>
+              <p>{{caseReq.startDate}}</p>
+            </ion-item>
+          </div>
+          <div class="col">
+            <ion-item>
+              <ion-label>結束日期</ion-label>
+              <p>{{caseReq.endDate}}</p>
+              </ion-item>
+          </div>
+          <div class="col">
+              <ion-item>
+                <ion-label>工作項目</ion-label>
+                <p>{{caseReq.workItemDesc}}</p>
+              </ion-item>
+            </div>
+        </div>
+        <div class='right'>
+          <ion-button (click)='goToCaseReqSearchResult()' class="button" type="submit" color="primary" size="large" expand="full">返回</ion-button>
+        </div>
+      </form>
+    </div>
+  </ion-content>

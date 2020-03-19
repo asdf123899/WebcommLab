@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>caseReqUpdate</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class=" container">
+    <h1>修改畫面</h1>
+    <form *ngIf="caseReq$ ;let caseReq" [formGroup]="updateForm" (ngSubmit)="onSubmit(updateForm)">
+      <div class="form-row">
+        <div class="col ">
+          <ion-list>
+            <ion-item>
+              <ion-label>工作編號</ion-label>
+              <ion-input id='caseNo' formControlName='caseNo' [(ngModel)]="caseReq.caseNo" readonly></ion-input>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>列管層級</ion-label>
+              <ion-select formControlName='monitorLevel' [(ngModel)]="caseReq.monitorLevel">
+                <ion-select-option *ngFor="let monitorLevel of keys(caseMonitorLevelEnum)" [value]=monitorLevel>
+                  {{caseMonitorLevelEnum[monitorLevel]}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>類別</ion-label>
+              <ion-select formControlName='type' [(ngModel)]="caseReq.type">
+                <ion-select-option *ngFor="let type of keys(caseTypeEnum)" [value]=type>{{caseTypeEnum[type]}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>主管單位</ion-label>
+              <ion-select formControlName='manager' [(ngModel)]="caseReq.manager"
+                [selectedText]="caseReq.manager.unit.unitName + '-' + caseReq.manager.name">
+                <ion-select-option *ngFor="let manager of empList$ " [value]=manager
+                  [selected]=" manager.name === caseReq.manager.name ">
+                  {{manager.unit.unitName +' - '+ manager.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-list>
+            <ion-item>
+              <ion-label>承辦單位</ion-label>
+              <ion-select formControlName="contact" [(ngModel)]="caseReq.contact"
+                [selectedText]="caseReq.contact.unit.unitName + '-' + caseReq.contact.name">
+                <ion-select-option *ngFor="let contactUnit of empList$ " [value]=contactUnit>
+                  {{contactUnit.unit.unitName +' - '+ contactUnit.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="col">
+          <ion-item>
+            <ion-label>開始日期
+              <ng-container *ngFor="let validation of validation_messages.startDate">
+                <span class="error-message"
+                  *ngIf="updateForm.get('startDate').hasError(validation.type) && (updateForm.get('startDate').dirty || updateForm.get('startDate').touched)">
+                  <ion-icon name="alert"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </ng-container>
+            </ion-label>
+            <ion-datetime formControlName="startDate" required displayFormat="MM DD YYYY" placeholder="Select Date" [(ngModel)]="caseReq.startDate">
+            </ion-datetime>
+          </ion-item>
+        </div>
+        <div class="col">
+          <ion-item>
+            <ion-label>結束日期
+              <ng-container *ngFor="let validation of validation_messages.endDate">
+                <span class="error-message"
+                  *ngIf="updateForm.get('endDate').hasError(validation.type) && (updateForm.get('endDate').dirty || updateForm.get('endDate').touched)">
+                  <ion-icon name="alert"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </ng-container>
+            </ion-label>
+            <ion-datetime formControlName="endDate" required displayFormat="MM DD YYYY" placeholder="Select Date" [(ngModel)]="caseReq.endDate">
+            </ion-datetime>
+          </ion-item>
+        </div>
+        <div class="col">
+          <ion-item>
+            <ion-label position="floating">工作項目
+              <ng-container *ngFor="let validation of validation_messages.workItemDesc">
+                <span class="error-message"
+                  *ngIf="updateForm.get('workItemDesc').hasError(validation.type) && (updateForm.get('workItemDesc').dirty || updateForm.get('workItemDesc').touched)">
+                  <ion-icon name="alert"></ion-icon>
+                  {{ validation.message }}
+                </span>
+              </ng-container>
+            </ion-label>
+            <ion-textarea formControlName="workItemDesc" required [(ngModel)]="caseReq.workItemDesc"></ion-textarea>
+          </ion-item>
+        </div>
+      </div>
+      <div class='right'>
+        <ion-button class="button" type="submit" color="primary" size="large" expand="full">修改</ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

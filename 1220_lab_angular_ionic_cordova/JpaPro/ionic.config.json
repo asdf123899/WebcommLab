@@ -1,0 +1,7 @@
+{
+  "name": "JpaPro",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
