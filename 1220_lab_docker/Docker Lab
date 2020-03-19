@@ -1,0 +1,55 @@
+Docker Lab
+
+說明：
+1. 先在電腦將Docker安裝好，安裝完畢使用docker -v指令確認
+2. LAB所需之war檔可在下面連結下載，https://drive.google.com/open?id=13TteG4aHV8lg2pLRUAX4_FfRcNzVjjBD
+
+LAB：
+1. 打包Image
+	(1)從連結下載DemoWarV1
+	(2)建立一個資料夾(例如DockerDemo)，將War丟進去
+	(3)在資料夾內建立一個檔案，檔案名稱為Dockerfile，不要有副檔名，windows特別注意
+	(4)Dockerfile內容：
+		FROM openjdk:8-jdk-alpine
+		ADD DockerDemo.war(這邊要注意跟下載下來的war同名) app.war
+		ENTRYPOINT java -jar /app.war
+	(5)打開CMD，將目錄導到前面建立的資料夾內
+	(6)打包image：docker build [目錄] -t [image名稱]:[image版本]
+	             範例:docker build . -t dockerdemo:latest (注意image名稱只能使用英文小寫)
+	(7)確認打包出來的image：docker images
+
+2. 建立新Tag
+	(1)docker tag [來源image名稱]:[來源image版本] [目標image名稱]:[目標image版本]
+	   範例：docker tag dockerdemo:latest dockerdemo:v1
+	(2)確認新的tag：docker images
+
+3. 產生Container
+    (1)docker run -p [本機 port]:[container port] [image名稱]:[image版本]
+       範例：docker run -p 8080:8080 dockerdemo:v1 (提供的war會在8080 port提供服務，所以這邊將本機的port接上container的8080 port)
+    (2)另開CMD，確認建立之container，docker ps -a  (-a為列出所有狀態的container，不加只會顯示正在運作的container)
+    (3)確認服務畫面 http://localhost:8080/hello (windows用戶特別注意，如果docker是裝在VM裡的話，請找到VM的IP取代localhost)
+
+4. 打包另一個版本的Image
+    (1)將DemoWarV2的war檔下載重複前面 1 ~ 3 步驟，重設tag的時候使用v2
+
+5. 建立Volume with Docker
+    (1)建立volume：docker volume create --name [volume名稱]
+       範例：docker volume create --name data
+    (2)將volume掛載至container：docker run -p [本機 port]:[container port] -v [volume名稱]:[container內部路徑] [image名稱]:[image版本]
+       範例：docker run -p 8080:8080 -v data:/data dockerdemo:v1
+    (3)到container內部確認是否有建立成功：docker exec -it [container名稱] /bin/sh (container名稱可用docker ps找到)
+       範例：docker exec -it nostalgic_minsky /bin/sh
+    (4)輸入指令ls確認是否有一個目錄叫data
+
+
+6. 建立Volume with fileSystem
+    (1)在本機建立一個資料夾 ex. C:\data 
+    (2)將Volume掛載至container：docker run -p [本機 port]:[container port] -v [本機檔案絕對路徑]:[container內部路徑] [image名稱]:[image版本]
+       範例：docker run -p 8080:8080 -v C:\data:/data dockerdemo:v1
+    (3)到container內部確認是否有建立成功：docker exec -it [container名稱] /bin/sh (container名稱可用docker ps找到)
+       範例：docker exec -it nostalgic_minsky /bin/sh
+    (4)輸入指令ls確認是否有一個目錄叫data
+    (5)嘗試在container的data裡面建立一個檔案，指令步驟如下：
+       cd data
+       touch hello
+       再到本機的資料夾裡面查看是否同樣有一個hello的檔案
