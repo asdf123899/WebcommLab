@@ -1,0 +1,21 @@
+body {
+	font-size: 93.75%;
+	line-height: 130%;
+	color: #000000;
+	margin: 0;
+	padding: 0;
+}
+#headerBase {
+	background: url("../images/header_base_bg.jpg") repeat-x;
+	height: 60px;
+}
+#headerBg {
+	background: url("../images/header_bg.jpg") no-repeat;
+	height: 60px;
+	margin: 0;
+	padding: 0;
+}
+.container {
+	padding: 0;
+	background:#CCE8CF;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	
+	<package name="hello" namespace="/hello" extends="struts-default">
+		<action name="sayHello" class="com.webcomm.oa.action.HelloWorldAction">
+			<result name="success">/jsp/helloWorld.jsp</result>
+		</action>
+	</package>
+	
+	<package name="caseReq" namespace="/caseReq" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>	
+		<action name="search" class="com.webcomm.oa.action.CaseReqAction">
+			<result name="success" type="tiles">search</result>
+<!-- 			no tiles 		-->
+<!-- 			<result name="success">/jsp/caseReqSearch.jsp</result> -->
+		</action>
+		<action name="doSearch" class="com.webcomm.oa.action.CaseReqAction" method="doSearch">
+			<result name="success" type="tiles">search</result>
+<!-- 			no tiles 		-->
+<!-- 			<result name="success">/jsp/caseReqSearch.jsp</result> -->
+		</action>
+		<action name="create" class="com.webcomm.oa.action.CaseReqAction" method="create">
+			<result name="success" type="tiles">create</result>
+<!-- 			no tiles 		-->
+<!-- 			<result name="success">/jsp/caseReqCreate.jsp</result> -->
+		</action>
+		<action name="doCreate" class="com.webcomm.oa.action.CaseReqAction" method="doCreate">
+			<result name="success" type="redirect">doSearch.action</result>
+		</action>
+		<action name="update" class="com.webcomm.oa.action.CaseReqAction" method="update">
+			<result name="success" type="tiles">update</result>
+<!-- 			no tiles 		-->
+<!-- 			<result name="success">/jsp/caseReqUpdate.jsp</result> -->
+		</action>
+		<action name="doUpdate" class="com.webcomm.oa.action.CaseReqAction" method="doUpdate">
+			<result name="success" type="redirect">doSearch.action</result>
+		</action>
+		<action name="doDelete" class="com.webcomm.oa.action.CaseReqAction" method="doDelete">
+			<result name="success" type="redirect">doSearch.action</result>
+		</action>
+		<action name="doPrint" class="com.webcomm.oa.action.CaseReqAction" method="doPrint">
+			<result name="success" type="stream">
+				<param name="contentType">application/pdf;</param>
+				<param name="inputName">pdfStream</param>
+				<param name="contentDisposition">attachment; filename="report.pdf"</param>
+				<param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
+</struts>

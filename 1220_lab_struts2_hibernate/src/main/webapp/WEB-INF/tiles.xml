@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+      "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+      "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<definition name="baseLayout" template="/tiles/Tiles_template.jsp">
+		<put-attribute name="title" value="CaseReq" />
+		<put-attribute name="tiles_header" value="/tiles/Tiles_header.jsp" />
+		<put-attribute name="tiles_menu" value="" />
+		<put-attribute name="tiles_main" value="" />
+		<put-attribute name="tiles_footer" value="/tiles/Tiles_footer.jsp" />
+	</definition>
+
+	<definition name="search" extends="baseLayout">
+		<put-attribute name="tiles_main" value="/jsp/caseReqSearch.jsp" />
+	</definition>
+
+	<definition name="create" extends="baseLayout">
+		<put-attribute name="tiles_main" value="/jsp/caseReqCreate.jsp" />
+	</definition>
+	
+	<definition name="update" extends="baseLayout">
+		<put-attribute name="tiles_main" value="/jsp/caseReqUpdate.jsp" />
+	</definition>
+
+</tiles-definitions>
