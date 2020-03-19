@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>查詢畫面</title>
+</head>
+<body>
+	<div th:fragment="search">
+		<div id="caseReq_Search_Page">
+			<div class="jumbotron">
+				<div class="container">
+					<form id="caseReq_Search_Form"
+						th:object="${searchBean}" method="POST">
+						<h5 class="display-3">查詢條件</h5>
+						<input type="text"  th:field="*{sort}" style="display: none;"/>
+						<input type="text"  th:field="*{size}" style="display: none;"/>
+						<input type="text"  th:field="*{page}" style="display: none;"/>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="monitorLevel">列管層級</label> 
+								<select class="custom-select d-block w-100"
+									th:field="*{monitorLevel}">
+									<option
+										th:each="level : ${T(com.webcomm.oa.data.CaseMonitorLevelEnum).getAllEnums()}"
+										th:value="${level}" th:utext="${level.desc}" />
+								</select>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="type">類別</label>
+								<select class="custom-select d-block w-100"
+									th:field="*{type}">
+									<option
+										th:each="type : ${T(com.webcomm.oa.data.CaseTypeEnum).getAllEnums()}"
+										th:value="${type}" th:utext="${type.desc}" />
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="managerUnitId">主管單位</label>
+								<select class="custom-select d-block w-100"
+									th:field="*{managerUnitId}">
+									<option value="">全部</option>
+									<option
+										th:each="unit : ${@unitService.listAll()}"
+										th:value="${unit.unitId}" th:utext="${unit.label}" />
+								</select>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="contactUnitId">承辦單位</label>
+								<select class="custom-select d-block w-100"
+									th:field="*{contactUnitId}">
+									<option value="">全部</option>
+									<option
+										th:each="emp : ${@employeeService.listAll()}"
+										th:value="${emp.empId}" th:utext="${emp.label}" />
+								</select>
+							</div>
+						</div>
+					</form>
+					<p class="text-right">
+						<button id='caseReq_create_btn' class="btn btn-primary btn-lg">新增</button>
+						<button id='caseReq_search_btn' class="btn btn-primary btn-lg">查詢</button>
+						<button id='caseReq_print_btn' class="btn btn-primary btn-lg" sec:authorize="hasRole('ADMIN')">列印</button>
+					</p>
+				</div>
+			</div>
+			<div id="caseReq_Search_Result" th:include="${currentPage} + 'Result'"></div>
+		</div>
+		<div id="caseReq_Create_Page" style="display: none;">
+		</div>
+		<div id="caseReq_Update_Page" style="display: none;">
+		</div>
+	</div>
+</body>
+</html>

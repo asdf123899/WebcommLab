@@ -1,0 +1,11 @@
+.sorted-desc::before, .sorted-asc::before {
+    float: right;
+}
+
+.sorted-desc::before{
+    content:"\25BC";
+}
+
+.sorted-asc::before{
+    content: "\25B2";
+}

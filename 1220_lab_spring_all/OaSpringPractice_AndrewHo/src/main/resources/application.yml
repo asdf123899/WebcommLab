@@ -1,0 +1,43 @@
+server:
+  servlet:
+    context-path: /oa
+  port: 9000
+
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: omp
+    password: passw0rd
+  jpa:
+    hibernate:
+      ddl-auto: none 
+    show-sql: true
+#    properties:
+#      hibernate.jdbc.batch_size: 100
+#      hibernate.enable_lazy_load_no_trans: true
+#  jta:
+#    atomikos:
+#      properties:
+#        threaded-two-phase-commit: true
+#        enable-logging: false
+
+  quartz:
+    job-store-type: memory
+    properties:
+      org.quartz.threadPool.threadCount: 5
+      
+## MailProperties
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: EmailFrom
+    password: yourPassword
+    properties.mail.smtp:
+        auth: true
+        starttls.enable: true
+        ssl.trust: smtp.gmail.com
+
+email.to : EmailTo
+wait.send.email.secs: 60
+      

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data">
+<head>
+<meta charset="UTF-8">
+<title>查詢結果</title>
+</head>
+<body>
+	<div th:fragment="searchResult">
+		<div class="container">
+			<div>
+				查詢結果
+				<button id='caseReq_delete_btn' class="btn btn-primary btn-lg">刪除</button>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped table-lg">
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="check_all"></th>
+							<th>項次</th>
+							<th><a class="sorted" sd:pagination-sort="caseNo" >工作編號</a></th>
+							<th><a class="sorted" sd:pagination-sort="type">類別</a></th>
+							<th><a class="sorted" sd:pagination-sort="monitorLevel">列管層級</a></th>
+							<th><a class="sorted" sd:pagination-sort="managerEmp.unit">主管單位</a></th>
+							<th><a class="sorted" sd:pagination-sort="managerEmp">主管單位承辦人</a></th>
+							<th><a class="sorted" sd:pagination-sort="contactEmp.unit">承辦單位</a></th>
+							<th><a class="sorted" sd:pagination-sort="contactEmp">承辦單位承辦人</a></th>
+							<th><a class="sorted" sd:pagination-sort="startDate">辦理起日</a></th>
+							<th><a class="sorted" sd:pagination-sort="endDate">辦理迄日</a></th>
+							<th><a class="sorted" sd:pagination-sort="workItemDesc">工作項目</a></th>
+							<th>功能</th>
+						</tr>
+					</thead>
+					<tbody>
+							<tr th:each="caseReq, iter: ${resultPage}">
+								<td><input type="checkbox" id="check" th:value="${caseReq.caseNo}" /></td>
+								<td><p th:text="${iter.count}"></p></td>
+								<td><p th:text="${caseReq.caseNo}"></p></td>
+								<td><p th:text="${caseReq.type.desc}"></p></td>
+								<td><p th:text="${caseReq.monitorLevel.desc}"></p></td>
+								<td><p th:text="${caseReq.managerEmp.unit.label}"></p></td>
+								<td><p th:text="${caseReq.managerEmp.label}"></p></td>
+								<td><p th:text="${caseReq.contactEmp.unit.label}"></p></td>
+								<td><p th:text="${caseReq.contactEmp.label}"></p></td>
+								<td><p th:text="${T(com.webcomm.oa.util.DateUtil).getRocDateStr(caseReq.startDate)}"></p></td>
+								<td><p th:text="${T(com.webcomm.oa.util.DateUtil).getRocDateStr(caseReq.endDate)}"></p></td>
+								<td><p th:text="${caseReq.workItemDesc}"></p></td>
+								<td><a class="btn btn-primary btn-sm" href="#"
+									role="button"
+									th:onclick="caseReqModel.preUpdate([[${caseReq.caseNo}]])">修改</a>
+									</td>
+							</tr>
+					</tbody>
+				</table>
+				<div class="row">
+				    <div class="col-sm-6">
+						<ul class="pagination" sd:pagination="full"></ul>
+<!-- 				    	<div class="btn-group dropup" sd:page-size-selector="javascript"></div> -->
+				    </div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

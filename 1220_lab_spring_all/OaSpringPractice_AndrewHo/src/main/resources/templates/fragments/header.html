@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="header">
+		<div
+			class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+			<div class="mr-md-auto ">
+				<a th:href="@{/}"><img th:src="@{/img/webcomm.png}" /></a>
+			</div>
+			<span sec:authorize="isAuthenticated()">
+				Hi <span sec:authentication="name"></span>
+				<a th:href="@{/logout}" class="btn btn-primary btn-sm">登出</a> 
+			</span>
+			<span sec:authorize="!isAuthenticated()">
+				<a th:href="@{/login}" class="btn btn-primary btn-sm">登入</a> 	
+			</span>
+		</div>
+	</div>
+</body>
+</html>
