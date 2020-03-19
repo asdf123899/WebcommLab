@@ -1,0 +1,29 @@
+name: flutter_lab_app
+description: A new Flutter application.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  json_annotation: ^3.0.0
+  reflectable: ^2.0.10+1
+  http: ^0.12.0
+  vnum: ^1.2.4
+  provider: ^3.0.0+1
+  get_it: ^1.0.3+2
+  flutter_slidable: ^0.5.4
+  date_format: ^1.0.8
+  flutter_datetime_picker: ^1.2.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+
+
